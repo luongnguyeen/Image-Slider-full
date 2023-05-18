@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.cdnfonts.com/css/major-mono-display-2" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Image Slider</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: sans-serif;
+      }
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .slider img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .slider-controls {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1;
+      }
+      .slider-control {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #fff;
+        opacity: 0.5;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .slider-control:hover {
+        opacity: 0.8;
+      }
+      .slider-control.active {
+        opacity: 1;
+      }
+      .slider-nav {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 40px;
+      }
+      .slider-nav button {
+        background: none;
+        border: none;
+        font-size: 2em;
+        cursor: pointer;
+        color: #fff;
+      }
+      .slider-nav button:focus {
+        outline: none;
+      }
+      /* slider container */
+      .slider {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+      }
+      /* slide images */
+      .slider img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      /* active slide */
+      .slider .active {
+        opacity: 1;
+      }
+      .slider-buttons {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+      }
+      .slider-button {
+        font-size: 24px;
+        font-weight: 100;
+        font-style: italic;
+        font-family: 'Major Mono Display', sans-serif;
+      }
+      .slider-button:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-buttons">
+      <button class="slider-button" onclick="prevSlide()">prev</button>
+      <button class="slider-button" onclick="nextSlide()">next</button>
+    </div>
+    <div class="slider">
+      <img class="slide active" src="https://i.ibb.co/qDb7TKj/image1.jpg" alt="image1">
+      <img class="slide" src="https://i.ibb.co/H4ychMK/image2.jpg" alt="image2">
+      <img class="slide" src="https://i.ibb.co/3NhHcmN/image3.jpg" alt="image3">
+      <img class="slide" src="https://i.ibb.co/jDWzJjB/image5.jpg" alt="image4">
+      <img class="slide" src="https://i.ibb.co/0rTpjX5/image6.jpg" alt="image5">
+      <img class="slide" src="https://i.ibb.co/nwpjyJM/image7.jpg" alt="image6">
+      <img class="slide" src="https://i.ibb.co/KWwM3rx/image8.jpg" alt="image7">
+      <img class="slide" src="https://i.ibb.co/7pdSS9P/image9.jpg" alt="image8">
+      <div class="slider-controls">
+        <a class="slider-control active" onclick="showSlide(1)"></a>
+        <a class="slider-control" onclick="showSlide(2)"></a>
+        <a class="slider-control" onclick="showSlide(3)"></a>
+        <a class="slider-control" onclick="showSlide(4)"></a>
+        <a class="slider-control" onclick="showSlide(5)"></a>
+        <a class="slider-control" onclick="showSlide(6)"></a>
+        <a class="slider-control" onclick="showSlide(7)"></a>
+        <a class="slider-control" onclick="showSlide(8)"></a>
+      </div>
+    </div>
+    <script>
+      let currentSlide = 1;
+      const slides = document.querySelectorAll(".slide");
+      const slideCount = slides.length;
+      function showSlide(slideNumber) {
+        currentSlide = slideNumber;
+        updateSlider();
+      }
+      function prevSlide() {
+        currentSlide--;
+        if (currentSlide < 1) {
+          currentSlide = slideCount;
+        }
+        updateSlider();
+      }
+      function nextSlide() {
+        currentSlide++;
+        if (currentSlide > slideCount) {
+          currentSlide = 1;
+        }
+        updateSlider();
+      }
+      function updateSlider() {
+        for (let i = 0; i < slideCount; i++) {
+          slides[i].classList.remove("active");
+        }
+        slides[currentSlide - 1].classList.add("active");
+        const controls = document.querySelectorAll(".slider-control");
+        for (let i = 0; i < slideCount; i++) {
+          controls[i].classList.remove("active");
+        }
+        controls[currentSlide - 1].classList.add("active");
+      }
+    </script>
+  </body>
+</html>
